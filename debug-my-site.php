@@ -25,7 +25,7 @@
 *
 * 1.0.3 - 06/04/2017
 * Improved coding standards
-* Enhancement: Ability for users to download debug information
+* Enhancement: Generate a .txt file with debug information
 *
 * 1.0.2 - 28/03/2017
 * Enhancement: include JQuery version in debug information. (Works only with default JQuery that is loaded from WordPress)
@@ -37,11 +37,14 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'DEBUG_MY_SITE_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
-class Debug_My_Site{
+include( 'classes/class-debug-my-site-display.php' );
+Debug_My_Site_Display::init();
+
+class Debug_My_Site {
 
 	private static $instance = null;
 
-	public function __construct(){
+	public function __construct() {
 
 		add_action( 'admin_init', array( $this, 'download_debug_info' ) );
 		add_action( 'admin_menu', array( $this, 'debug_my_site_add_page' ) );
@@ -51,16 +54,16 @@ class Debug_My_Site{
 	public static function get_instance() {
 
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
-	return self::$instance;
+		return self::$instance;
 
 	}
 
 	/**
-	* General functions go below
-	*/
+	 * General functions go below
+	 */
 
 	public static function download_debug_info() {
 		$download = filter_input( INPUT_GET, 'download', FILTER_SANITIZE_STRING );
@@ -93,11 +96,11 @@ class Debug_My_Site{
 		}
 	}
 
-	public static function debug_my_site_add_page(){
+	public static function debug_my_site_add_page() {
 		add_submenu_page( 'tools.php', 'Debug My Site Information', 'Debug My Site', 'manage_options', 'debug-my-site-info', array( 'Debug_My_Site', 'debug_my_site_info_page' ) );
 	}
 
-	public static function debug_my_site_info_page(){
+	public static function debug_my_site_info_page() {
 		include 'adminpages/debug-my-site-info-page.php';
 	}
 
