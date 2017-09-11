@@ -66,27 +66,48 @@ class Debug_My_Site_Display {
 	}
 
 	public static function short_debug_info() {
+		$function = array();
+		$function['title'] = 'Quick Info';
+		$function['data'] = '<div id="debug-my-site-short">' . Debug_My_Site_Core::short_debug_info() . '</div>
+		<hr id="debug-my-site-hr">';
+		return $function;
+	}
 
+	public static function long_debug_info() {
+		$function = array();
+		$function['title'] = 'Debug Information';
+		$function['data'] = '<div id="debug-my-site-long">' . Debug_My_Site_Core::debug_info() . '</div>
+		<hr id="debug-my-site-hr">';
+		return $function;
+	}
+
+
+	public static function long_debug_info1() {
+		_e( 'Debug Information', 'debug-my-site' ); ?>
+		<div id="debug-my-site-long"><?php echo Debug_My_Site_Core::debug_info(); ?></div><?php
 	}
 
 	public static function enqueue_stuff() {
 		$screenid = self::print_current_screen();
 		if ( 'dashboard_page_' . __CLASS__ . '-dashboard' === $screenid ) {
 			wp_register_script( 'bootstrap-min', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', array( 'jquery' ) );
+			wp_register_style( 'sample', plugins_url( 'sample.css', __FILE__ ) );
 			wp_register_style( 'bootstrap-min', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' );
 			wp_enqueue_script( 'bootstrap-min' );
 			wp_enqueue_style( 'bootstrap-min' );
+			wp_enqueue_style( 'sample' );
 		}
 	}
 
 	public static function bootstrap_tabbed_table() {
+		$tab1 = self::short_debug_info();
+		$tab2 = self::long_debug_info();
 		?>
 		<div id="bootstrap-tabs" class="row">	
 			<ul class="nav nav-tabs">
-				<li class="active">
-					<a href="#1" data-toggle="tab">Overview</a>
+				<li class="active"><a href="#1" data-toggle="tab"><?php echo $tab1['title']; ?></a>
 				</li>
-				<li><a href="#2" data-toggle="tab">Without clearfix</a>
+				<li ><a href="#2" data-toggle="tab"><?php echo $tab2['title']; ?></a>
 				</li>
 				<li><a href="#3" data-toggle="tab">Solution</a>
 				</li>
@@ -94,13 +115,14 @@ class Debug_My_Site_Display {
 
 			<div class="tab-content ">
 				<div class="tab-pane active" id="1">
-					<h4>Standard tab panel created on bootstrap using nav-tabs</h4>
+					<h4><?php echo $tab1['data']; ?></h4>
+					
 				</div>
 				<div class="tab-pane" id="2">
-					<h4>Notice the gap between the content and tab after applying a background color</h4>
+					<h4><?php echo $tab2['data']; ?></h4>
 				</div>
 				<div class="tab-pane" id="3">
-					<h4>add clearfix to tab-content (see the css)</h4>
+					<h4>Hire a developer</h4>
 				</div>
 			</div>
 			<hr/>

@@ -3,8 +3,8 @@
 * Plugin Name: Debug My Site
 * Plugin URI: https://yoohooplugins.com
 * Description: Get debug information for your WordPress website.
-* Version: 1.0.3
-* Author: YooHoo Plugins
+* Version: 1.1.1
+* Author: YooHoo Plugins and pbrocks
 * Author URI: https://yoohooplugins.com
 * Text Domain: debug-my-site
 *
@@ -23,6 +23,9 @@
 *
 * CHANGE LOG
 *
+* 1.1.1 - 09/09/2017
+* Added tabs
+*
 * 1.0.3 - 06/04/2017
 * Improved coding standards
 * Enhancement: Generate a .txt file with debug information
@@ -39,6 +42,9 @@ define( 'DEBUG_MY_SITE_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 include( 'classes/class-debug-my-site-display.php' );
 Debug_My_Site_Display::init();
+include( 'classes/debug-my-site-core.php' );
+Debug_My_Site_Core::init();
+
 
 class Debug_My_Site {
 

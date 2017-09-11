@@ -1,12 +1,15 @@
-<?php 
+<?php
 
 /**
-*  Code used and altered from Caldera Forms (www.calderaforms.com) - Thanks Josh! (https://profiles.wordpress.org/shelob9/)
-*/
+ *  Code used and altered from Caldera Forms (www.calderaforms.com) - Thanks Josh! (https://profiles.wordpress.org/shelob9/)
+ */
 
 defined( 'ABSPATH' ) || exit;
 
 class Debug_My_Site_Core {
+
+	public static function init() {
+	}
 
 	/**
 	 * Return an array of plugin names and versions
@@ -64,7 +67,7 @@ class Debug_My_Site_Core {
 			'WordPress Version'           => $wp,
 			'PHP Version'                 => $php,
 			'MySQL Version'               => $mysql,
-			'JQuery Version'			  => $wp_scripts->registered['jquery']->ver,
+			'JQuery Version'              => $wp_scripts->registered['jquery']->ver,
 			'Server Software'             => $_SERVER['SERVER_SOFTWARE'],
 			'Your User Agent'             => $_SERVER['HTTP_USER_AGENT'],
 			'Session Save Path'           => session_save_path(),
@@ -77,7 +80,7 @@ class Debug_My_Site_Core {
 			'WP Multisite Mode'           => ( is_multisite() ? 'Yes' : 'No' ),
 			'WP Memory Limit'             => WP_MEMORY_LIMIT,
 			'Currently Active Theme'      => $theme_name . ': ' . $theme_version,
-			'Parent Theme'				  => $theme->template,
+			'Parent Theme'                => $theme->template,
 			'Currently Active Plugins'    => $plugins,
 		);
 		if ( $html ) {
@@ -126,3 +129,5 @@ class Debug_My_Site_Core {
 	}
 
 }
+Debug_My_Site_Core::init();
+
