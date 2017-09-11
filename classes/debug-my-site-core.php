@@ -64,6 +64,11 @@ class Debug_My_Site_Core {
 			'Redis'     => class_exists( 'Redis' ) ? 'Yes' : 'No',
 		);
 		$versions      = array(
+			'WPDB Prefix'                 => $wpdb->prefix,
+			'WP Multisite Mode'           => ( is_multisite() ? 'Yes' : 'No' ),
+			'WP Memory Limit'             => WP_MEMORY_LIMIT,
+			'Currently Active Theme'      => $theme_name . ': ' . $theme_version,
+			'Parent Theme'                => $theme->template,
 			'WordPress Version'           => $wp,
 			'PHP Version'                 => $php,
 			'MySQL Version'               => $mysql,
@@ -76,11 +81,6 @@ class Debug_My_Site_Core {
 			'Session Max Lifetime'        => ini_get( 'session.gc_maxlifetime' ),
 			'Opcode Cache'                => $opcode_cache,
 			'Object Cache'                => $object_cache,
-			'WPDB Prefix'                 => $wpdb->prefix,
-			'WP Multisite Mode'           => ( is_multisite() ? 'Yes' : 'No' ),
-			'WP Memory Limit'             => WP_MEMORY_LIMIT,
-			'Currently Active Theme'      => $theme_name . ': ' . $theme_version,
-			'Parent Theme'                => $theme->template,
 			'Currently Active Plugins'    => $plugins,
 		);
 		if ( $html ) {
@@ -107,15 +107,17 @@ class Debug_My_Site_Core {
 		global $wp_version, $wpdb;
 
 		$data = array(
-			'WordPress Version'     => $wp_version,
-			'PHP Version'           => phpversion(),
-			'MySQL Version'         => $wpdb->db_version(),
-			'WP_DEBUG'              => WP_DEBUG,
+			'WordPress Version:'     => $wp_version,
+			'PHP Version:'           => phpversion(),
+			'MySQL Version:'         => $wpdb->db_version(),
+			// ''                       => '<br><br>',
+			'WPDB Prefix:'           => $wpdb->prefix,
+			'WP_DEBUG:'              => ( WP_DEBUG ) ? WP_DEBUG : 'false',
 		);
 		if ( $html ) {
 			$html = '';
 			foreach ( $data as $what_v => $v ) {
-				$html .= '<li style="display: inline;"><strong>' . $what_v . '</strong>: ' . $v . ' </li>';
+				$html .= '<li style="display: inline;"><strong>' . $what_v . '</strong> ' . $v . ' </li>';
 			}
 
 			return '<ul>' . $html . '</ul>';
