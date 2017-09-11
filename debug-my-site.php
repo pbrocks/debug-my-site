@@ -42,8 +42,6 @@ define( 'DEBUG_MY_SITE_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 include( 'classes/class-debug-my-site-display.php' );
 Debug_My_Site_Display::init();
-include( 'classes/debug-my-site-core.php' );
-Debug_My_Site_Core::init();
 
 
 class Debug_My_Site {
@@ -74,7 +72,7 @@ class Debug_My_Site {
 	public static function download_debug_info() {
 		$download = filter_input( INPUT_GET, 'download', FILTER_SANITIZE_STRING );
 		if ( ! empty( $download ) && 'true' == $download ) {
-			include_once DEBUG_MY_SITE_PLUGIN_DIR_PATH . 'classes/debug-my-site-core.php';
+			// include_once DEBUG_MY_SITE_PLUGIN_DIR_PATH . 'classes/debug-my-site-core.php';
 			$eol = "\r\n";
 			$info = esc_attr( 'Short Debug Information', 'debug-my-site' ) . $eol;
 			$info_data = Debug_My_Site_Core::short_debug_info( false );

@@ -131,5 +131,4 @@ class Debug_My_Site_Core {
 	}
 
 }
-Debug_My_Site_Core::init();
 

@@ -19,7 +19,7 @@ class Debug_My_Site_Display {
 	 */
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_dashboard_menu' ) );
-		// add_action( 'admin_head', array( __CLASS__, 'print_current_screen' ) );
+		add_action( 'admin_init', array( __CLASS__, 'include_core_info' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_stuff' ) );
 	}
 	/**
@@ -31,6 +31,13 @@ class Debug_My_Site_Display {
 	 */
 	public static function add_dashboard_menu() {
 		add_dashboard_page( __( __CLASS__, 'textdomain' ), __( __CLASS__, 'textdomain' ), 'manage_options', __CLASS__ . '-dashboard.php', array( __CLASS__, 'add_dashboard_page' ) );
+	}
+
+	public static function include_core_info() {
+		if( ! class_exists( 'Debug_My_Site_Core' ) ) {
+			include( DEBUG_MY_SITE_PLUGIN_DIR_PATH . 'classes/debug-my-site-core.php' );
+		}
+
 	}
 
 
@@ -107,7 +114,7 @@ class Debug_My_Site_Display {
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#1" data-toggle="tab"><?php echo $tab1['title']; ?></a>
 				</li>
-				<li ><a href="#2" data-toggle="tab"><?php echo $tab2['title']; ?></a>
+				<li><a href="#2" data-toggle="tab"><?php echo $tab2['title']; ?></a>
 				</li>
 				<li><a href="#3" data-toggle="tab">Solution</a>
 				</li>
